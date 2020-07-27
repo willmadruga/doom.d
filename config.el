@@ -121,3 +121,4 @@
 (map! :g "C-c u" 'upload-to-netsuite)
 (map! :g "<C-s-down>" 'duplicate-line)
 (map! :g "<f8>" 'treemacs)
+(map! :g "M-p" '+evil/alt-paste)
