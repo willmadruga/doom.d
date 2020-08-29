@@ -59,7 +59,12 @@
 
 (setq undo-limit 80000000               ; Raise undo-limit to 80Mb
       auto-save-default t               ; auto-save
+      js-indent-level 2                 ; javascript indentation
       )
+
+(setq-default indent-tabs-mode nil
+              fill-column 140
+              tab-width 2)
 
 ;; Replace selection when inserting text
 (delete-selection-mode 1)
