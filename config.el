@@ -55,6 +55,44 @@
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+;; EXWM
+;; (require 'exwm)
+;; (require 'exwm-config)
+;; (exwm-config-default)
+
+;; (require 'exwm-systemtray)
+;; (exwm-systemtray-enable)
+
+;; (require 'exwm-randr)
+;; (exwm-randr-enable)
+
+;; (setq exwm-randr-workspace-output-plist '(0 "HDMI-2" 1 "DP-1"))
+;; (add-hook 'exwm-randr-screen-change-hook
+;;           (lambda ()
+;;             (start-process-shell-command
+;;              "xrandr" nil
+;;              ;; "xrandr --output DP-1 --auto --right-of HDMI-2 --rotate left")))
+;;              "xrandr --output DP-1 --auto --left-of HDMI-2 --rotate left")))
+;; (exwm-randr-enable)
+
+;; Automatic Multi Monitor setup for EXWM
+;; (defun exwm-change-screen-hook ()
+;;   (let ((xrandr-output-regexp "\n\\([^ ]+\\) connected ")
+;;         default-output)
+;;     (with-temp-buffer
+;;       (call-process "xrandr" nil t nil)
+;;       (goto-char (point-min))
+;;       (re-search-forward xrandr-output-regexp nil 'noerror)
+;;       (setq default-output (match-string 1))
+;;       (forward-line)
+;;       (if (not (re-search-forward xrandr-output-regexp nil 'noerror))
+;;           (call-process "xrandr" nil nil nil "--output" default-output "--auto")
+;;         (call-process
+;;          "xrandr" nil nil nil
+;;          "--output" (match-string 1) "--primary" "--auto"
+;;          "--output" default-output "--off")
+;;         (setq exwm-randr-workspace-output-plist (list 0 (match-string 1)))))))
+
 ;; CONFIG ;;
 
 (setq undo-limit 80000000               ; Raise undo-limit to 80Mb
@@ -121,6 +159,7 @@
     (next-line 1)
     (yank)
     (move-to-column cursor-column)))
+
 
 ;; Mappings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (map! :g "C-c u" 'upload-to-netsuite)
