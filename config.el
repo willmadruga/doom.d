@@ -35,6 +35,8 @@
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
 (setq display-line-numbers-type t)
 
+;; Projectile
+(setq projectile-project-search-path '("~/git" "~/src"))
 
 ;; Here are some additional functions/macros that could help you configure Doom:
 ;;
@@ -125,7 +127,7 @@
 ;; FUNCTIONS ;;
 
 ;; Run babashka script that uploads buffer to Netsuite.
-(defun upload-to-netsuite ()
+(defun wmad/upload-to-netsuite ()
   "Send buffer to Netsuite."
   (interactive)
   (let ((cmd (concat "ns-upload" " " (buffer-file-name))))
@@ -133,36 +135,41 @@
     ))
 
 ;; Shutdown emacs server
-(defun server-shutdown ()
+(defun wmad/server-shutdown ()
   "Save buffers, Quit, and Shutdown (kill) server"
   (interactive)
   (save-some-buffers)
   (kill-emacs)
   )
 
-;; JIRA Org Export - Replace chars
-(defun replace-jira ()
-  (interactive)
-  (move-beginning-of-line 1)
-  (replace-string "~" "" )
-  (move-beginning-of-line 1)
-  (replace-string "{anchor}" "_" ))
-
 ;; Duplicate line :)
-(defun duplicate-line ()
+(defun wmad/duplicate-line ()
   (interactive)
   (let* ((cursor-column (current-column)))
     (move-beginning-of-line 1)
     (kill-line)
     (yank)
-    (open-line 1)
-    (next-line 1)
+    (forward-line)
     (yank)
     (move-to-column cursor-column)))
 
+;; Transpose windows: https://www.emacswiki.org/emacs/TransposeWindows
+(defun wmad/transpose-windows ()
+  "Transpose two windows.  If more or less than two windows are visible, error."
+  (interactive)
+  (unless (= 2 (count-windows))
+    (error "There are not 2 windows."))
+  (let* ((windows (window-list))
+         (w1 (car windows))
+         (w2 (nth 1 windows))
+         (w1b (window-buffer w1))
+         (w2b (window-buffer w2)))
+    (set-window-buffer w1 w2b)
+    (set-window-buffer w2 w1b)))
 
 ;; Mappings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(map! :g "C-c u" 'upload-to-netsuite)
-(map! :g "<C-s-down>" 'duplicate-line)
+(map! :g "C-c u" 'wmad/upload-to-netsuite)
+(map! :g "C-c t" 'wmad/transpose-windows)
+(map! :g "<C-s-down>" 'wmad/duplicate-line)
 (map! :g "<f8>" 'treemacs)
 (map! :g "M-p" '+evil/alt-paste)
