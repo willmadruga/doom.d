@@ -124,6 +124,14 @@
     (toggle-frame-maximized)
   (toggle-frame-fullscreen))
 
+;; Tabs config
+(setq centaur-tabs-style "wave")
+(setq centaur-tabs-height 40)
+(setq centaur-tabs-set-icons t)
+(setq centaur-tabs-set-bar 'under)
+(setq x-underline-at-descent-line t)
+(setq centaur-tabs-set-close-button nil)
+
 ;; FUNCTIONS ;;
 
 ;; Run babashka script that uploads buffer to Netsuite.
