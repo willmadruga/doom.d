@@ -132,6 +132,8 @@
 (setq x-underline-at-descent-line t)
 (setq centaur-tabs-set-close-button nil)
 
+(setq org-agenda-files "~/.doom.d/agenda.el")
+
 ;; FUNCTIONS ;;
 
 ;; Run babashka script that uploads buffer to Netsuite.
@@ -181,3 +183,4 @@
 (map! :g "<C-s-down>" 'wmad/duplicate-line)
 (map! :g "<f8>" 'treemacs)
 (map! :g "M-p" '+evil/alt-paste)
+(map! :leader "b 0" 'bufler)
