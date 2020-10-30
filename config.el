@@ -25,7 +25,7 @@
 ;; There are two ways to load a theme. Both assume the theme is installed and
 ;; available. You can either set `doom-theme' or manually load a theme with the
 ;; `load-theme' function. This is the default: doom-one
-(setq doom-theme 'doom-material)
+(setq doom-theme 'doom-acario-dark)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -134,6 +134,10 @@
 
 (setq org-agenda-files "~/.doom.d/agenda.el")
 
+(custom-set-variables
+ '(elfeed-feeds
+   '("https://www.redhat.com/sysadmin/rss.xml" "https://sachachua.com/blog/category/emacs-news/feed" "https://insideclojure.org/feed.xml")))
+
 ;; FUNCTIONS ;;
 
 ;; Run babashka script that uploads buffer to Netsuite.
@@ -159,7 +163,7 @@
     (move-beginning-of-line 1)
     (kill-line)
     (yank)
-    (forward-line)
+    (forward-line 1)
     (yank)
     (move-to-column cursor-column)))
 
@@ -180,7 +184,7 @@
 ;; Mappings ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (map! :g "C-c u" 'wmad/upload-to-netsuite)
 (map! :g "C-c t" 'wmad/transpose-windows)
-(map! :g "<C-s-down>" 'wmad/duplicate-line)
+(map! :g "C-c <down>" 'wmad/duplicate-line)
 (map! :g "<f8>" 'treemacs)
 (map! :g "M-p" '+evil/alt-paste)
 (map! :leader "b 0" 'bufler)
